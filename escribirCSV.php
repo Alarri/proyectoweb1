@@ -1,13 +1,28 @@
 <?php
 
-$linea = array('205690979', 'Alberth', 'Arrieta Alfaro', 'alberth.arrieta@gmail.com', '88546771')
-$lista = array ($linea, $linea);
+$student = $_REQUEST['student'];
+// Creo un arreglo el 
+$lista = array($student['cedula'], $student['nombre'], $student['apellidos'], $student['correo'], $student['telefono']);
+ 
+date_default_timezone_set('America/Costa_Rica');
+//Imprimimos la fecha actual dandole un formato
+//Buscamos la fecha del sistema para crear el nombre del archivo .CSV
+$nameFile = date("dmY").".csv";
 
-$fp = fopen('archivo.csv', 'w');
+//abrir archivo o crear si no exite
+$fp = fopen('archivo.csv', 'a');
 
-foreach ($lista as $campos) {
-    fputcsv($fp, $campos);
+//guardar linea en archivo
+fputcsv($fp, $lista);
+
+//cerrar archivo
+fclose($fp);
+
+?>
+
+<script type="text/javascript"> 
+if(confirm('Etudiante Ingresado, desea ingresar otro?')) {
+    window.location.href = 'index.html';
 }
 
-fclose($fp);
-?>
+</script>

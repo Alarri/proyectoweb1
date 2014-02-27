@@ -1,0 +1,19 @@
+html{ margin: 0; padding: 0; }
+body{ color: #4F5155; font: 13px/20px normal Helvetica, Arial, sans-serif; }
+
+.hidden{ display: none; }
+
+#wrapper{ max-width: 960px; margin: 0 auto; }
+
+#wrapper.titulo{ /*box-sizing:border-box;*/ /*padding: 20px;*/ border: 1px solid #D0D0D0; /*text-align: center;*/ box-shadow: 0 0 8px #D0D0D0; -webkit-box-shadow: 0 0 8px #D0D0D0; -moz-box-shadow: 0 0 8px #D0D0D0; }
+
+header{ box-sizing:border-box; background: lightGrey; display: block; /*border-bottom: 1px solid #D0D0D0;*/ min-height: 50px; padding: 18px 20px; overflow: hidden; }
+.mainPage h1{ margin: 0 20px 0 0; padding: 0; float: left; }
+.mainPage h1 img{ height: 15px; width: auto; }
+
+#formInsertar form{}
+#formInsertar form label, #formInsertar form label{ width: 85px; display: inline-block; background: lightblue; text-align: right; }
+/*#profilePage form label input{ width: 150px; }*/
+#formInsertar form input[type='submit']{margin: 10px 0 0 100px;}
+
+footer{ margin: 0 auto; text-align: center;}
