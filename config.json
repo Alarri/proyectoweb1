@@ -1,0 +1,9 @@
+{
+	"BD":
+	{
+	"dbhost" : "localhost",
+	"dbuser" : "root",
+	"dbpass" : "12345",
+	"dbname" : "proyectoweb1"
+	}
+}

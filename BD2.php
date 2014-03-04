@@ -1,34 +1,35 @@
 <?php
-	$dbhost = 'localhost';  //$dbhost = 'localhost:3036';
-	$dbuser = 'root';
-	$dbpass = '12345';
+	
+	if(!isset($argv[1]) ) {
+		die("Usar: php {$argv[0]} <json_archivo>\n");
+	}
+	// Lee el fichero en una variable,
+	// y convierte su contenido a una estructura de datos
+	$str_datos = file_get_contents($argv[1]); //el archivo .json viene por parametro
+	$datosJson = json_decode($str_datos,true);
+
+	$dbhost = $datosJson["BD"]["dbhost"]; 
+	$dbuser = $datosJson["BD"]["dbuser"];
+	$dbpass = $datosJson["BD"]["dbpass"];
 	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
 
 	if(! $conn ) {
-	  die('Could not connect: ' . mysql_error());
+	  die('No se pudo conectar a la Base de Datos: ' . mysql_error());
 	}
 
-	if(!isset($argv[1]) ) {
-		die("Usage: php {$argv[0]} <csv_file>\n");
-	}
+	require_once 'fecha.php';
 
-	$fp = fopen ( $argv[1] , "r" );//cambiar
-	$first_line = true;
-	$columns_names_array = array();
+	$nameFile =$fechaHoy.".csv";
+
+	$fp = fopen ( $nameFile, "r" );//cambiar
+	//$first_line = true;
+	//$columns_names_array = array();
 	$values_array = array();
-	$columns_names = "";
+	//$columns_names = "";
 	$i=0;
-	while (( $data = fgetcsv ( $fp , 2048, ";" )) !== false ) { // Mientras hay líneas que leer...
+	while (( $data = fgetcsv ( $fp , 2048, "," )) !== false ) { // Mientras hay líneas que leer...
 
-	    if($first_line){
-	    	$columns_names_array = $data;
-
-	    	foreach($columns_names_array as $colum) {
-		       $columns_names.=$colum.",";
-		    }
-	    	$first_line = false;
-	    	continue;
-	    }
+	    
 	    $values_row="";
 	    foreach($data as $colum) {
 	    	$values_row.="\"".$colum."\",";
@@ -45,17 +46,17 @@
     	$insertar_sql .= '('.$campo.'), ';
        
     }
-    $insertar_sql = 'INSERT INTO estudiantes ('.substr($columns_names, 0,-1).') VALUES '.substr($insertar_sql, 0,-2).'; ';
+    $insertar_sql = 'INSERT INTO estudiante (cedula, nombre, apellidos, correo, telefono) VALUES '.substr($insertar_sql, 0,-2).'; ';
     //echo $insertar_sql;
     //die();
-	mysql_select_db('proyectoweb1');
+	mysql_select_db($datosJson["BD"]["dbname"]); ///nombre de la base de datos
 
 	$retval = mysql_query($insertar_sql, $conn );
 
 	if(! $retval )
 	{
-	  die('Could not enter data: ' . mysql_error());
+	  die('ERROR: no se puedo guardar en la Base de Datos ' . mysql_error());
 	}
-	echo "Entered data successfully\n";
+	echo "Datos almacenados correctamente\n";//cambiar
 	mysql_close($conn);
 ?>
