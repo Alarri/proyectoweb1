@@ -21,11 +21,10 @@
 
 	$nameFile =$fechaHoy.".csv";
 
-	$fp = fopen ( $nameFile, "r" );//cambiar
-	//$first_line = true;
-	//$columns_names_array = array();
+	$fp = fopen ( $nameFile, "r" );
+	
 	$values_array = array();
-	//$columns_names = "";
+
 	$i=0;
 	while (( $data = fgetcsv ( $fp , 2048, "," )) !== false ) { // Mientras hay líneas que leer...
 
@@ -57,6 +56,12 @@
 	{
 	  die('ERROR: no se puedo guardar en la Base de Datos ' . mysql_error());
 	}
-	echo "Datos almacenados correctamente\n";//cambiar
+	echo "Datos almacenados correctamente\n";
+
+	require_once 'correo.php';
+	$conectarCorreo = new Correo();
+	$conectarCorreo->EnviarCorreo($argv[1],$i);	
+	
+
 	mysql_close($conn);
 ?>

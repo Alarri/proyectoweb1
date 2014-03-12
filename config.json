@@ -5,5 +5,22 @@
 	"dbuser" : "root",
 	"dbpass" : "12345",
 	"dbname" : "proyectoweb1"
-	}
+	},
+	"Correo": {
+        "email_from":"",
+        "email_from_name":"Alberth Arrieta Alfaro"
+       
+    },"CorreoDestino": {
+        "email_for":"gmenarodriguez@gmail.com",
+        "email_for_name":"Grettel Mena"
+       
+    },
+    "ConfMail": {
+
+    	"email_smtp_host":"smtp.gmail.com",
+    	"email_smtp_port":"465",
+    	"email_smtp_user":"alberth.arrieta@gmail.com",
+    	"email_smtp_pass":"gr3t73lm3n4",
+    	"email_batch_limit":"3"
+    }
 }
